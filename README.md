@@ -1,3 +1,3 @@
 # Golang pet projects
 
-## Пет проекты на Golang
+Пет проекты на Golang
