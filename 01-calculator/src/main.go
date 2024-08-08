@@ -31,4 +31,7 @@ func main() {
 	fmt.Scan(&line)
 
 	fmt.Println(calculate((line)))
+
+	a := make([]int, 3, 3)
+	fmt.Println(a)
 }
