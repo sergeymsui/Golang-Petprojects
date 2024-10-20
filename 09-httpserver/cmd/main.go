@@ -44,9 +44,7 @@ func mainPage(res http.ResponseWriter, req *http.Request) {
 	res.Write([]byte("This is main page"))
 }
 
-func init() {
-	// fmt.Println("Hello world")
-}
+func init() {}
 
 func main() {
 	mux := http.NewServeMux()
@@ -54,8 +52,6 @@ func main() {
 	mux.HandleFunc("/api", apiPage)
 	mux.HandleFunc("/json", JSONHandler)
 	mux.HandleFunc("/redirect", redirect)
-
-	mux.HandleFunc("/ls", http.FileServer(http.Dir(".")))
 
 	mux.HandleFunc("/file", func(res http.ResponseWriter, req *http.Request) {
 		http.ServeFile(res, req, "./static/test.txt")
