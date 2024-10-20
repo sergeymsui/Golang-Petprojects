@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -10,6 +9,10 @@ import (
 type Dataset struct {
 	Data   string `json:"data"`
 	Number int    `json:"number"`
+}
+
+func redirect(res http.ResponseWriter, req *http.Request) {
+	http.Redirect(res, req, "https://ya.ru", http.StatusMovedPermanently)
 }
 
 func JSONHandler(res http.ResponseWriter, req *http.Request) {
@@ -42,7 +45,7 @@ func mainPage(res http.ResponseWriter, req *http.Request) {
 }
 
 func init() {
-	fmt.Println("Hello world")
+	// fmt.Println("Hello world")
 }
 
 func main() {
@@ -50,6 +53,9 @@ func main() {
 	mux.HandleFunc("/", mainPage)
 	mux.HandleFunc("/api", apiPage)
 	mux.HandleFunc("/json", JSONHandler)
+	mux.HandleFunc("/redirect", redirect)
+
+	mux.HandleFunc("/ls", http.FileServer(http.Dir(".")))
 
 	mux.HandleFunc("/file", func(res http.ResponseWriter, req *http.Request) {
 		http.ServeFile(res, req, "./static/test.txt")
